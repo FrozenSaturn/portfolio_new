@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arya Bhattacharjee | ~/portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['"Space Mono"', 'monospace'],
+                    },
+                    colors: {
+                        term: {
+                            bg: '#050505',
+                            text: '#39ff14',  // Classic terminal green
+                            dim: '#2d5e2e',
+                            accent: '#0ff', // Cyan for accents
+                            warn: '#ff3333'
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 10px #39ff14, 0 0 20px #39ff14',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0d1117;
+            /* GitHub Dark Dim-ish but darker */
+            color: #39ff14;
+            font-family: 'Space Mono', monospace;
+            overflow: hidden;
+            /* For full screen monitor effect */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Monitor Frame (Optional, but adds to the effect) */
+        .monitor-frame {
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+            /* Crop the curved screen */
+        }
+
+        /* The Screen Container */
+        .crt-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #050505;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 2rem 4rem;
+            /* Inner padding */
+
+            /* CRT curving effect - subtle */
+            box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Old Monitor Effects */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+
+            /* Scanlines */
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+                    rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg,
+                    rgba(255, 0, 0, 0.06),
+                    rgba(0, 255, 0, 0.02),
+                    rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+
+            /* Vignette */
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Slight Flicker */
+        @keyframes flicker {
+            0% {
+                opacity: 0.97;
+            }
+
+            5% {
+                opacity: 0.95;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            15% {
+                opacity: 0.95;
+            }
+
+            20% {
+                opacity: 0.99;
+            }
+
+            50% {
+                opacity: 0.95;
+            }
+
+            55% {
+                opacity: 0.9;
+            }
+
+            60% {
+                opacity: 0.96;
+            }
+
+            75% {
+                opacity: 0.9;
+            }
+
+            80% {
+                opacity: 0.98;
+            }
+
+            100% {
+                opacity: 0.95;
+            }
+        }
+
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(57, 255, 20, 0.02);
+            z-index: 40;
+        }
+
+        /* Text Glow */
+        .glow-text {
+            text-shadow: 0 0 2px rgba(57, 255, 20, 0.4), 0 0 8px rgba(57, 255, 20, 0.3);
+        }
+
+        h1.glow-text {
+            text-shadow: 0 0 5px rgba(57, 255, 20, 0.6), 0 0 15px rgba(57, 255, 20, 0.4);
+        }
+
+        /* Separators */
+        .separator {
+            display: flex;
+            align-items: center;
+            color: #2d5e2e;
+            margin: 2rem 0;
+            font-size: 0.8rem;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px dashed #2d5e2e;
+        }
+
+        .separator span {
+            padding: 0 1rem;
+        }
+
+        /* Typing Cursor */
+        .cursor::after {
+            content: '█';
+            animation: blink 1s step-start infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+            border-left: 1px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2d5e2e;
+            border: 2px solid #050505;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #39ff14;
+        }
+
+        /* Glitch Effect on Hover for Links */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #fff;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0)
+            }
+
+            20% {
+                transform: translate(-2px, 2px)
+            }
+
+            40% {
+                transform: translate(-2px, -2px)
+            }
+
+            60% {
+                transform: translate(2px, 2px)
+            }
+
+            80% {
+                transform: translate(2px, -2px)
+            }
+
+            100% {
+                transform: translate(0)
+            }
+        }
+
+        /* Tech Icons Grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+        }
+
+        .tech-item {
+            border: 1px solid #2d5e2e;
+            padding: 0.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .tech-item:hover {
+            border-color: #39ff14;
+            background: rgba(57, 255, 20, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="monitor-frame">
+        <div class="crt-overlay"></div>
+        <div class="crt-flicker"></div>
+
+        <div class="crt-screen">
+
+            <!-- Top Bar -->
+            <header
+                class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-term-dim pb-4 mb-8 sticky top-0 bg-[#050505] z-30 pt-4">
+                <div class="flex flex-col gap-1 w-full md:w-auto">
+                    <div class="flex items-center gap-2 text-sm text-gray-500">
+                        <span>Last Login:</span>
+                        <span id="last-login">Mon Jan 06 2026 10:42:01</span>
+                        <span>on ttys001</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-lg">
+                        <span class="text-term-accent">root@arya-mainframe</span>
+                        <span class="text-white">:</span>
+                        <span class="text-blue-400">~/source/portfolio</span>
+                        <span class="text-white">$</span>
+                        <span class="cursor">cat profile.json flow.md</span>
+                    </div>
+                </div>
+
+                <a href="index.html"
+                    class="mt-4 md:mt-0 border border-term-text px-6 py-2 hover:bg-term-text hover:text-black transition-colors text-xs md:text-sm uppercase font-bold tracking-widest group">
+                    <span class="group-hover:hidden">[ SWITCH_TO_GUI ]</span>
+                    <span class="hidden group-hover:inline">[ SYSTEM_REBOOT ]</span>
+                </a>
+            </header>
+
+            <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_3fr] gap-12 pb-20">
+
+                <!-- Sidebar / System Stats -->
+                <aside class="space-y-10">
+
+                    <!-- Profile Image (ASCII ish border) -->
+                    <div class="relative group">
+                        <div
+                            class="absolute -inset-1 bg-term-dim blur opacity-20 group-hover:opacity-75 transition duration-1000 group-hover:duration-200">
+                        </div>
+                        <div class="relative border border-term-text p-1">
+                            <img src="129.jpg"
+                                onerror="this.src='https://placehold.co/400x400/000000/39ff14?text=IMG_ERR_404'"
+                                alt="Profile"
+                                class="w-full grayscale contrast-125 brightness-90 hover:grayscale-0 transition-duration-500 block">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 bg-black/80 text-xs text-center py-1 opacity-0 group-hover:opacity-100 transition-opacity text-term-text">
+                                ./assets/arya_v1.jpg
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Diagnostics -->
+                    <div class="border-l-2 border-term-dim pl-4 space-y-4 font-mono text-sm">
+                        <div class="text-term-dim uppercase tracking-widest text-xs mb-2">// SYSTEM_DIAGNOSTICS</div>
+
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">KERNEL</span>
+                            <span class="text-white">Darwin 25.4.0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">UPTIME</span>
+                            <span id="uptime" class="text-term-accent">calculating...</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">MEMORY</span>
+                            <div class="w-24 bg-gray-900 h-4 mt-0.5 relative">
+                                <div class="absolute top-0 left-0 h-full bg-term-dim w-[85%] animate-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-500">CPU_LOAD</span>
+                            <div class="w-24 bg-gray-900 h-4 mt-0.5 relative">
+                                <div class="absolute top-0 left-0 h-full bg-term-warn w-[30%] animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Matrix -->
+                    <div>
+                        <div class="separator"><span>// MODULES_LOADED</span></div>
+                        <div class="tech-grid">
+                            <!-- Python -->
+                            <div class="tech-item group">
+                                <i class="fab fa-python text-2xl mb-2 group-hover:text-yellow-400"></i>
+                                <div class="text-xs">Python</div>
+                            </div>
+                            <!-- JS -->
+                            <div class="tech-item group">
+                                <i class="fab fa-js text-2xl mb-2 group-hover:text-yellow-300"></i>
+                                <div class="text-xs">ES6+</div>
+                            </div>
+                            <!-- Node -->
+                            <div class="tech-item group">
+                                <i class="fab fa-node text-2xl mb-2 group-hover:text-green-500"></i>
+                                <div class="text-xs">Node.js</div>
+                            </div>
+                            <!-- React -->
+                            <div class="tech-item group">
+                                <i class="fab fa-react text-2xl mb-2 group-hover:text-blue-400"></i>
+                                <div class="text-xs">React</div>
+                            </div>
+                            <!-- Docker -->
+                            <div class="tech-item group">
+                                <i class="fab fa-docker text-2xl mb-2 group-hover:text-blue-500"></i>
+                                <div class="text-xs">Docker</div>
+                            </div>
+                            <!-- AWS -->
+                            <div class="tech-item group">
+                                <i class="fab fa-aws text-2xl mb-2 group-hover:text-orange-500"></i>
+                                <div class="text-xs">AWS</div>
+                            </div>
+                            <!-- Database -->
+                            <div class="tech-item group">
+                                <i class="fas fa-database text-2xl mb-2 group-hover:text-purple-400"></i>
+                                <div class="text-xs">SQL</div>
+                            </div>
+                            <!-- Git -->
+                            <div class="tech-item group">
+                                <i class="fab fa-git-alt text-2xl mb-2 group-hover:text-red-500"></i>
+                                <div class="text-xs">Git</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </aside>
+
+                <!-- Main Buffer -->
+                <div class="space-y-16">
+
+                    <!-- Hero Section -->
+                    <section class="relative">
+                        <div class="absolute -left-12 top-0 bottom-0 w-px bg-term-dim hidden lg:block"></div>
+                        <div class="text-term-dim text-xs mb-4">/* -- START_SESSION -- */</div>
+
+                        <h1 class="text-5xl md:text-7xl font-bold mb-6 glow-text tracking-tighter text-white">
+                            ARYA <br class="md:hidden">BHATTACHARJEE
+                        </h1>
+
+                        <div class="border-l-4 border-term-accent pl-6 py-2 mb-8 bg-gray-900/50">
+                            <p class="text-xl md:text-2xl text-term-text font-light leading-relaxed">
+                                <span class="text-blue-400">class</span> <span
+                                    class="text-yellow-400">FullStackEngineer</span> <span
+                                    class="text-white">extends</span> <span class="text-purple-400">Human</span> {<br>
+                                &nbsp;&nbsp;<span class="text-gray-400">// Architecting scalable systems & AI
+                                    agents</span><br>
+                                }
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#projects"
+                                class="bg-term-text text-black px-8 py-3 font-bold hover:bg-white hover:shadow-glow transition-all uppercase tracking-wider text-sm">
+                                <i class="fas fa-code-branch mr-2"></i>View_Projects
+                            </a>
+                            <a href="mailto:aryaa111000@gmail.com"
+                                class="border border-term-text text-term-text px-8 py-3 font-bold hover:bg-term-text hover:text-black transition-all uppercase tracking-wider text-sm">
+                                <i class="fas fa-envelope mr-2"></i>Contact_Me
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- Experience Section -->
+                    <section>
+                        <div class="separator"><span>// VAR_LOG_EXPERIENCE</span></div>
+
+                        <div class="space-y-12">
+
+                            <!-- Job 1 -->
+                            <div
+                                class="group relative pl-8 border-l border-dashed border-gray-700 hover:border-term-text transition-colors">
+                                <div
+                                    class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-term-dim rounded-full group-hover:bg-term-text group-hover:shadow-glow transition-all">
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-baseline gap-4 mb-2">
+                                    <h3
+                                        class="text-2xl font-bold text-white group-hover:text-term-accent transition-colors">
+                                        Backend Lead</h3>
+                                    <span class="text-sm text-term-dim font-mono">@ GrowEasy | 2025.12 - PRESENT</span>
+                                </div>
+                                <p class="text-gray-400 mb-4 max-w-2xl leading-relaxed">
+                                    Executing backend scalability protocols. Orchestrated a secure subscription
+                                    microservice capable of handling <span class="text-white font-bold">1000+ monthly
+                                        active users</span>.
+                                </p>
+                                <div
+                                    class="bg-[#0a0a0a] p-4 text-xs font-mono text-gray-300 border border-gray-800 rounded">
+                                    <span class="text-blue-400">const</span> achievements = [<br>
+                                    &nbsp;&nbsp;"Secure storage for 4000+ generated assets",<br>
+                                    &nbsp;&nbsp;"Granular plan validation",<br>
+                                    &nbsp;&nbsp;"Integrated Gemini API"<br>
+                                    ];
+                                </div>
+                            </div>
+
+                            <!-- Job 2 -->
+                            <div
+                                class="group relative pl-8 border-l border-dashed border-gray-700 hover:border-term-text transition-colors">
+                                <div
+                                    class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-term-dim rounded-full group-hover:bg-term-text group-hover:shadow-glow transition-all">
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-baseline gap-4 mb-2">
+                                    <h3
+                                        class="text-2xl font-bold text-white group-hover:text-term-accent transition-colors">
+                                        AI Engineer</h3>
+                                    <span class="text-sm text-term-dim font-mono">@ SantEnt | 2025.07 - 2025.10</span>
+                                </div>
+                                <p class="text-gray-400 mb-4 max-w-2xl leading-relaxed">
+                                    Deployed autonomous agentic pipelines. Engineered RAG chatbots reducing internal
+                                    workflow latency by <span class="text-term-warn">50%</span>.
+                                </p>
+                                <div class="flex gap-2 mt-2">
+                                    <span
+                                        class="border border-gray-700 px-2 py-1 text-xs hover:border-term-text text-gray-500">LangChain</span>
+                                    <span
+                                        class="border border-gray-700 px-2 py-1 text-xs hover:border-term-text text-gray-500">FAISS</span>
+                                    <span
+                                        class="border border-gray-700 px-2 py-1 text-xs hover:border-term-text text-gray-500">GCP</span>
+                                </div>
+                            </div>
+
+                            <!-- Job 3 -->
+                            <div
+                                class="group relative pl-8 border-l border-dashed border-gray-700 hover:border-term-text transition-colors">
+                                <div
+                                    class="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-term-dim rounded-full group-hover:bg-term-text group-hover:shadow-glow transition-all">
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-baseline gap-4 mb-2">
+                                    <h3
+                                        class="text-2xl font-bold text-white group-hover:text-term-accent transition-colors">
+                                        Developer</h3>
+                                    <span class="text-sm text-term-dim font-mono">@ CollegeTips.in | 2025.05 -
+                                        2025.06</span>
+                                </div>
+                                <p class="text-gray-400 max-w-2xl leading-relaxed">
+                                    Shipped voice-enabled interfaces for digital literacy initiatives.
+                                </p>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Projects Section -->
+                    <section id="projects">
+                        <div class="separator"><span>// LS -LA ~/PROJECTS</span></div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            <!-- Project 1 -->
+                            <div
+                                class="border border-term-dim bg-gray-900/30 p-6 hover:border-term-accent hover:bg-gray-900/80 transition-all group cursor-pointer relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 p-2 opacity-50 text-6xl text-term-dim -mr-4 -mt-4 transition-transform group-hover:scale-110 group-hover:opacity-20">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white mb-2 group-hover:text-term-accent">
+                                    IPL_Insight_Engine</h4>
+                                <p class="text-sm text-gray-400 mb-4 leading-relaxed">Explainable AI cricket forecasting
+                                    using SHAP values. Provides depth analysis of match outcomes.</p>
+
+                                <div class="flex flex-wrap gap-2 text-xs font-mono mt-auto">
+                                    <span class="text-blue-400">#XGBoost</span>
+                                    <span class="text-green-400">#FastAPI</span>
+                                    <span class="text-yellow-400">#React</span>
+                                </div>
+                            </div>
+
+                            <!-- Project 2 -->
+                            <div
+                                class="border border-term-dim bg-gray-900/30 p-6 hover:border-term-accent hover:bg-gray-900/80 transition-all group cursor-pointer relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 p-2 opacity-50 text-6xl text-term-dim -mr-4 -mt-4 transition-transform group-hover:scale-110 group-hover:opacity-20">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-white mb-2 group-hover:text-term-accent">
+                                    AskAway_RAG_Bot</h4>
+                                <p class="text-sm text-gray-400 mb-4 leading-relaxed">Interactive PDF chatbot with 1.8x
+                                    better retrieval precision using vector search.</p>
+
+                                <div class="flex flex-wrap gap-2 text-xs font-mono mt-auto">
+                                    <span class="text-blue-400">#LangChain</span>
+                                    <span class="text-green-400">#Gemini</span>
+                                    <span class="text-yellow-400">#FAISS</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Footer / Terminal End -->
+                    <footer class="pt-12 pb-8 text-center text-xs text-term-dim">
+                        <div class="mb-4">
+                            <span class="text-gray-600">-- END OF BUFFER --</span>
+                        </div>
+                        <p>&copy; 2026 Arya Bhattacharjee [ SYSTEM_READY ]</p>
+                    </footer>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <script>
+        // Simple Uptime Counter mimicking Linux uptime
+        const uptimeElement = document.getElementById('uptime');
+        const startDate = new Date();
+
+        function updateUptime() {
+            const now = new Date();
+            const diff = now - startDate;
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+
+            uptimeElement.innerText = `${hours}h ${minutes % 60}m ${seconds % 60}s`;
+        }
+
+        setInterval(updateUptime, 1000);
+        updateUptime();
+    </script>
+</body>
+
+</html>
