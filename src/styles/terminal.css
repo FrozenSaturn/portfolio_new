@@ -1,0 +1,233 @@
+body {
+    background-color: #0d1117;
+    /* GitHub Dark Dim-ish but darker */
+    color: #39ff14;
+    font-family: 'Space Mono', monospace;
+    overflow: hidden;
+    /* For full screen monitor effect */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The Monitor Frame (Optional, but adds to the effect) */
+.monitor-frame {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+    /* Crop the curved screen */
+}
+
+/* The Screen Container */
+.crt-screen {
+    width: 100%;
+    height: 100%;
+    background-color: #050505;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 2rem 4rem;
+    /* Inner padding */
+
+    /* CRT curving effect - subtle */
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+}
+
+/* Old Monitor Effects */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+
+    /* Scanlines */
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg,
+            rgba(255, 0, 0, 0.06),
+            rgba(0, 255, 0, 0.02),
+            rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+
+    /* Vignette */
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+}
+
+/* Slight Flicker */
+@keyframes flicker {
+    0% {
+        opacity: 0.97;
+    }
+
+    5% {
+        opacity: 0.95;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    15% {
+        opacity: 0.95;
+    }
+
+    20% {
+        opacity: 0.99;
+    }
+
+    50% {
+        opacity: 0.95;
+    }
+
+    55% {
+        opacity: 0.9;
+    }
+
+    60% {
+        opacity: 0.96;
+    }
+
+    75% {
+        opacity: 0.9;
+    }
+
+    80% {
+        opacity: 0.98;
+    }
+
+    100% {
+        opacity: 0.95;
+    }
+}
+
+.crt-flicker {
+    animation: flicker 0.15s infinite;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(57, 255, 20, 0.02);
+    z-index: 40;
+}
+
+/* Text Glow */
+.glow-text {
+    text-shadow: 0 0 2px rgba(57, 255, 20, 0.4), 0 0 8px rgba(57, 255, 20, 0.3);
+}
+
+h1.glow-text {
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.6), 0 0 15px rgba(57, 255, 20, 0.4);
+}
+
+/* Separators */
+.separator {
+    display: flex;
+    align-items: center;
+    color: #2d5e2e;
+    margin: 2rem 0;
+    font-size: 0.8rem;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px dashed #2d5e2e;
+}
+
+.separator span {
+    padding: 0 1rem;
+}
+
+/* Typing Cursor */
+.cursor::after {
+    content: '█';
+    animation: blink 1s step-start infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+    border-left: 1px solid #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2d5e2e;
+    border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #39ff14;
+}
+
+/* Glitch Effect on Hover for Links */
+.glitch-hover:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: #fff;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0)
+    }
+
+    20% {
+        transform: translate(-2px, 2px)
+    }
+
+    40% {
+        transform: translate(-2px, -2px)
+    }
+
+    60% {
+        transform: translate(2px, 2px)
+    }
+
+    80% {
+        transform: translate(2px, -2px)
+    }
+
+    100% {
+        transform: translate(0)
+    }
+}
+
+/* Tech Icons Grid */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+}
+
+.tech-item {
+    border: 1px solid #2d5e2e;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.tech-item:hover {
+    border-color: #39ff14;
+    background: rgba(57, 255, 20, 0.1);
+    transform: translateY(-2px);
+}
