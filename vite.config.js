@@ -7,8 +7,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
-                newspaper: resolve(__dirname, 'newspaper.html'),
-                coder: resolve(__dirname, 'coder.html'),
+                newspaper: resolve(__dirname, 'newspaper/index.html'),
+                coder: resolve(__dirname, 'coder/index.html'),
             },
         },
     },
