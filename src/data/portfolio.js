@@ -6,13 +6,18 @@ export const portfolioData = {
         location: "Kolkata, India",
         bio: "Bridging the gap between robust systems serving 1,000+ users monthly and cutting-edge agentic AI pipelines. In a world where digital landscapes shift daily, stability meets innovation here.",
         metrics: "99.9% Uptime • <100ms Latency • 100% Code Coverage",
-        tagline: "Code is temporary, logic is forever."
+        tagline: "Code is temporary, logic is forever.",
+        social: {
+            github: "https://github.com/FrozenSaturn",
+            linkedin: "https://www.linkedin.com/in/arya-bhattacharjee/",
+            twitter: "https://x.com/frozen_saturn"
+        }
     },
     experience: [
         {
             id: "groweasy",
             company: "GrowEasy",
-            role: "Backend Lead",
+            role: "Software Developer Intern",
             date: "DEC '25",
             endDate: "PRESENT",
             type: "Remote",
@@ -31,7 +36,7 @@ export const portfolioData = {
         {
             id: "santent",
             company: "SantEnt",
-            role: "AI Engineer",
+            role: "AI Engineer Intern",
             date: "JUL '25",
             endDate: "OCT '25",
             type: "On-site",
@@ -49,7 +54,7 @@ export const portfolioData = {
         {
             id: "college",
             company: "CollegeTips.in",
-            role: "Developer",
+            role: "AI Intern",
             date: "MAY '25",
             endDate: "JUN '25",
             type: "Remote",
@@ -60,18 +65,37 @@ export const portfolioData = {
     ],
     projects: [
         {
+            title: "Live Chat App",
+            underscoredTitle: "Live_Chat_App",
+            tech: ["Next.js", "Convex DB", "Clerk Auth", "Shadcn UI"],
+            desc: "A real-time chat application with features like user authentication, real-time messaging, and online status indicators.",
+            icon: "fas fa-comments",
+            links: {
+                github: "https://github.com/FrozenSaturn/live-chat",
+                live: "https://livechat.aryabhattacharjee.online"
+            }
+        },
+        {
             title: "IPL Insight Engine",
             underscoredTitle: "IPL_Insight_Engine",
             tech: ["XGBoost", "FastAPI", "React", "Docker"],
             desc: "Explainable AI cricket forecasting using SHAP values. Provides depth analysis of match outcomes.",
-            icon: "fas fa-chart-line"
+            icon: "fas fa-chart-line",
+            links: {
+                github: "https://github.com/FrozenSaturn/ipl_predictor",
+                live: "https://ipl-insight.aryabhattacharjee.online"
+            }
         },
         {
             title: "AskAway RAG Bot",
             underscoredTitle: "AskAway_RAG_Bot",
-            tech: ["LangChain", "Faiss", "Gemini"], // Updated casing to match usage if needed, or normalize in mapping
+            tech: ["LangChain", "Faiss", "Gemini"],
             desc: "Interactive PDF chatbot with 1.8x better retrieval precision.",
-            icon: "fas fa-robot"
+            icon: "fas fa-robot",
+            links: {
+                github: "https://github.com/FrozenSaturn/RAG_based_Chatbot",
+                live: "https://askaway.aryabhattacharjee.online"
+            }
         }
     ],
     skills: [

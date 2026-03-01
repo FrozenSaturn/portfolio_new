@@ -51,14 +51,31 @@ function renderNewspaperContent() {
     if (projContainer) {
         projContainer.innerHTML = portfolioData.projects.map(proj => `
             <li class="group">
-                <a href="#" class="block hover:bg-white transition-colors">
+                <div class="block transition-colors">
                     <h5 class="font-serif font-bold text-lg group-hover:underline decoration-news-accent">${proj.title}</h5>
                     <p class="font-mono text-[10px] text-gray-500 mb-1 border-b border-dotted border-gray-400 pb-1">
                         ${proj.tech.join(', ')}</p>
-                    <p class="font-serif text-sm leading-snug text-gray-800">${proj.desc}</p>
-                </a>
+                    <p class="font-serif text-sm leading-snug text-gray-800 mb-2">${proj.desc}</p>
+                    <div class="flex gap-4 font-mono text-[10px] uppercase font-bold">
+                        ${proj.links.github ? `<a href="${proj.links.github}" target="_blank" class="hover:underline text-news-accent">GitHub Repo</a>` : ''}
+                        ${proj.links.live ? `<a href="${proj.links.live}" target="_blank" class="hover:underline text-news-accent">Live Demo</a>` : ''}
+                    </div>
+                </div>
             </li>
         `).join('');
+    }
+
+    // Social links in footer
+    const socialContainer = document.querySelector('footer div.font-serif.flex.flex-col');
+    if (socialContainer && portfolioData.personal.social) {
+        const social = portfolioData.personal.social;
+        socialContainer.innerHTML = `
+            <span class="font-bold mb-4 text-base border-b border-gray-600 pb-1 w-full md:w-auto">Subscriptions</span>
+            ${social.linkedin ? `<a href="${social.linkedin}" target="_blank" class="hover:text-news-accent transition-colors mb-2">LinkedIn Edition</a>` : ''}
+            ${social.github ? `<a href="${social.github}" target="_blank" class="hover:text-news-accent transition-colors mb-2">GitHub Repository</a>` : ''}
+            ${social.twitter ? `<a href="${social.twitter}" target="_blank" class="hover:text-news-accent transition-colors mb-2">Twitter Feed</a>` : ''}
+            <a href="mailto:${portfolioData.personal.email}" class="hover:text-news-accent transition-colors">Letter to the Editor</a>
+        `;
     }
 }
 
@@ -99,7 +116,7 @@ function renderCoderContent() {
 
     if (projContainer) {
         projContainer.innerHTML = portfolioData.projects.map(proj => `
-             <div class="border border-term-dim bg-gray-900/30 p-6 hover:border-term-accent hover:bg-gray-900/80 transition-all group cursor-pointer relative overflow-hidden">
+             <div class="border border-term-dim bg-gray-900/30 p-6 hover:border-term-accent hover:bg-gray-900/80 transition-all group relative overflow-hidden flex flex-col h-full">
                 <div class="absolute top-0 right-0 p-2 opacity-50 text-6xl text-term-dim -mr-4 -mt-4 transition-transform group-hover:scale-110 group-hover:opacity-20">
                     <i class="${proj.icon || 'fas fa-code'}"></i>
                 </div>
@@ -108,11 +125,33 @@ function renderCoderContent() {
                 </h4>
                 <p class="text-sm text-gray-400 mb-4 leading-relaxed">${proj.desc}</p>
 
-                <div class="flex flex-wrap gap-2 text-xs font-mono mt-auto">
+                <div class="flex flex-wrap gap-2 text-xs font-mono mb-6">
                     ${proj.tech.map(t => `<span class="${getTechColor(t)}">#${t}</span>`).join('')}
+                </div>
+
+                <div class="mt-auto flex gap-4 font-mono text-xs">
+                    ${proj.links.github ? `
+                    <a href="${proj.links.github}" target="_blank" class="text-term-dim hover:text-term-text transition-colors flex items-center gap-1">
+                        <i class="fab fa-github"></i> source
+                    </a>` : ''}
+                    ${proj.links.live ? `
+                    <a href="${proj.links.live}" target="_blank" class="text-term-accent hover:text-white transition-colors flex items-center gap-1">
+                        <i class="fas fa-external-link-alt"></i> visit
+                    </a>` : ''}
                 </div>
             </div>
         `).join('');
+    }
+
+    // Social links in contact section
+    const socialContainer = document.querySelector('#contact .flex.gap-4');
+    if (socialContainer && portfolioData.personal.social) {
+        const social = portfolioData.personal.social;
+        socialContainer.innerHTML = `
+            ${social.linkedin ? `<a href="${social.linkedin}" target="_blank" class="text-gray-400 hover:text-white transition-colors">[ LinkedIn ]</a>` : ''}
+            ${social.github ? `<a href="${social.github}" target="_blank" class="text-gray-400 hover:text-white transition-colors">[ GitHub ]</a>` : ''}
+            ${social.twitter ? `<a href="${social.twitter}" target="_blank" class="text-gray-400 hover:text-white transition-colors">[ Twitter ]</a>` : ''}
+        `;
     }
 }
 

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Source Not Found</title>
+    <meta name="description" content="Error 404: The requested resource has been redacted or moved to another sector.">
+    <link rel="icon" type="image/jpeg" href="/assets/profilephoto.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'news-paper': '#fdfaf3',
+                        'news-ink': '#1a1a1a',
+                        'term-bg': '#050505',
+                        'term-green': '#39ff14',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            animation: glitch-anim2 1s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(31px, 9999px, 94px, 0);
+            }
+
+            20% {
+                clip: rect(62px, 9999px, 42px, 0);
+            }
+
+            40% {
+                clip: rect(10px, 9999px, 81px, 0);
+            }
+
+            60% {
+                clip: rect(74px, 9999px, 2px, 0);
+            }
+
+            80% {
+                clip: rect(45px, 9999px, 90px, 0);
+            }
+
+            100% {
+                clip: rect(18px, 9999px, 54px, 0);
+            }
+        }
+
+        @keyframes glitch-anim2 {
+            0% {
+                clip: rect(65px, 9999px, 100px, 0);
+            }
+
+            20% {
+                clip: rect(32px, 9999px, 12px, 0);
+            }
+
+            40% {
+                clip: rect(87px, 9999px, 43px, 0);
+            }
+
+            60% {
+                clip: rect(12px, 9999px, 78px, 0);
+            }
+
+            80% {
+                clip: rect(54px, 9999px, 20px, 0);
+            }
+
+            100% {
+                clip: rect(9px, 9999px, 35px, 0);
+            }
+        }
+
+        .newspaper-tear {
+            mask-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M0,0 L100,0 L100,80 Q90,75 80,85 T60,80 T40,90 T20,75 T0,85 Z" fill="black"/></svg>');
+            mask-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body class="bg-black min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
+
+    <div
+        class="max-w-4xl w-full grid md:grid-cols-2 gap-0 overflow-hidden rounded-lg shadow-2xl border border-gray-800">
+
+        <!-- Coder Side (Left) -->
+        <div class="bg-term-bg p-8 flex flex-col justify-center border-r border-gray-800 relative group">
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-gray-600 uppercase tracking-widest">
+                System_Error</div>
+
+            <div class="space-y-6">
+                <h1 class="text-term-green font-mono text-6xl font-bold glitch" data-text="404">404</h1>
+                <p class="text-gray-400 font-mono text-sm leading-relaxed">
+                    <span class="text-blue-400">panic</span>: page_not_found <br>
+                    <span class="text-gray-600">// The requested memory address is invalid or has been
+                        deallocated.</span>
+                </p>
+                <a href="/coder/"
+                    class="inline-block border border-term-green text-term-green px-6 py-2 font-mono text-xs uppercase hover:bg-term-green hover:text-black transition-all">
+                    > Run reboot_system()
+                </a>
+            </div>
+        </div>
+
+        <!-- Editor Side (Right) -->
+        <div class="bg-news-paper p-8 flex flex-col justify-center relative">
+            <div
+                class="absolute top-4 right-4 font-mono text-[10px] text-gray-400 uppercase tracking-widest text-right">
+                Edition: Redacted</div>
+
+            <div class="space-y-6">
+                <h2 class="font-serif text-news-ink text-5xl font-black italic border-b-4 border-news-ink pb-2">LOST AT
+                    SEA</h2>
+                <p class="font-serif text-news-ink text-lg leading-tight text-justify italic">
+                    "Yesterday's news is gone, and today's path is missing. We regret to inform you that the page you
+                    seek has been lost in the archives."
+                </p>
+                <a href="/newspaper/"
+                    class="inline-block bg-news-ink text-news-paper px-6 py-2 font-mono text-xs uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                    Return to Masthead
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Center Bridge (The Gate Home) -->
+    <a href="/"
+        class="mt-8 text-gray-500 hover:text-white font-mono text-[10px] uppercase tracking-widest flex items-center gap-2 group transition-colors">
+        <i class="fas fa-home transition-transform group-hover:-translate-y-1"></i>
+        Access Login Gate
+    </a>
+
+    <!-- Background Decors -->
+    <div class="fixed -bottom-20 -left-20 w-64 h-64 bg-term-green/5 rounded-full blur-3xl -z-10"></div>
+    <div class="fixed -top-20 -right-20 w-64 h-64 bg-news-ink/10 rounded-full blur-3xl -z-10"></div>
+
+</body>
+
+</html>

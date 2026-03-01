@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aryabhattacharjee.online/sitemap.xml
