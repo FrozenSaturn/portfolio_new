@@ -89,6 +89,30 @@ export const portfolioData = {
             }
         },
         {
+            title: "CellStart Medical",
+            underscoredTitle: "CellStart_Medical",
+            tech: ["Vanilla CSS", "JavaScript", "SVG Animations"],
+            desc: "A premium biotech landing page featuring 3D molecule visuals, interactive product carousels, and a sleek mini-cart system.",
+            icon: "fas fa-heartbeat",
+            links: {
+                github: "https://github.com/FrozenSaturn/chrono-landing-page",
+                live: "https://medical-landing.aryabhattacharjee.online"
+            },
+            deepDive: {
+                whyTech: [
+                    { title: "Pure CSS 3D", desc: "Engineered a complex 3D molecule model using CSS transforms and recursive animations, avoiding heavy WebGL libraries for O(1) load performance." },
+                    { title: "Vanilla JavaScript", desc: "Implemented a robust mini-cart and carousel logic from scratch to maintain a minimal bundle size and demonstrate deep DOM manipulation expertise." },
+                    { title: "SVG Branding", desc: "Crafted custom vector assets and interactive grid masks to create a premium, high-tech aesthetic that feels 'alive' through micro-interactions." }
+                ],
+                metrics: [
+                    { label: "Design Fidelity", value: "100%", percentage: 100 },
+                    { label: "First Contentful Paint", value: "0.2s", percentage: 98 },
+                    { label: "Interactive Components", value: "5+", percentage: 90 }
+                ],
+                summary: "This project showcases high-end frontend craftsmanship where performance meets advanced visual design. It focuses on the pharmaceutical niche, delivering a premium user experience through smooth transitions and a modern interactive interface."
+            }
+        },
+        {
             title: "IPL Insight Engine",
             underscoredTitle: "IPL_Insight_Engine",
             tech: ["XGBoost", "FastAPI", "React", "Docker"],
@@ -134,7 +158,7 @@ export const portfolioData = {
                 ],
                 summary: "An advanced implementation of Retrieval-Augmented Generation that focuses on the quality and accuracy of the retrieved context, preventing hallucination and providing reliable, grounded answers from dense PDFs."
             }
-        }
+        },
     ],
     skills: [
         { name: "Python", icon: "fab fa-python", color: "text-yellow-400" },

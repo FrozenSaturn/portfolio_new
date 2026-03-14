@@ -169,7 +169,14 @@ function getTechColor(tech) {
         'LangChain': 'text-blue-400',
         'Gemini': 'text-green-400',
         'FAISS': 'text-yellow-400',
-        'Docker': 'text-blue-500'
+        'Docker': 'text-blue-500',
+        'Vanilla CSS': 'text-orange-400',
+        'JavaScript': 'text-yellow-400',
+        'SVG Animations': 'text-pink-400',
+        'Next.js': 'text-white',
+        'Convex DB': 'text-blue-300',
+        'Clerk Auth': 'text-purple-400',
+        'Shadcn UI': 'text-slate-300'
     };
     return map[tech] || 'text-gray-400';
 }
