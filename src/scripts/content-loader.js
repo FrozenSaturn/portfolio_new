@@ -176,7 +176,11 @@ function getTechColor(tech) {
         'Next.js': 'text-white',
         'Convex DB': 'text-blue-300',
         'Clerk Auth': 'text-purple-400',
-        'Shadcn UI': 'text-slate-300'
+        'Shadcn UI': 'text-slate-300',
+        'Leaflet.js': 'text-green-400',
+        'Node.js': 'text-green-500',
+        'Express': 'text-gray-300',
+        'Vite': 'text-purple-400'
     };
     return map[tech] || 'text-gray-400';
 }

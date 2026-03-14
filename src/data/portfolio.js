@@ -159,6 +159,30 @@ export const portfolioData = {
                 summary: "An advanced implementation of Retrieval-Augmented Generation that focuses on the quality and accuracy of the retrieved context, preventing hallucination and providing reliable, grounded answers from dense PDFs."
             }
         },
+        {
+            title: "Releaf",
+            underscoredTitle: "Releaf",
+            tech: ["React", "Vite", "Leaflet.js", "Node.js", "Express"],
+            desc: "A gamified environmental action tracker that turns real-world activities like tree planting into interactive map items.",
+            icon: "fas fa-leaf",
+            links: {
+                github: "https://github.com/FrozenSaturn/eco-quest",
+                live: "https://releaf.aryabhattacharjee.online"
+            },
+            deepDive: {
+                whyTech: [
+                    { title: "Leaflet.js", desc: "Selected for its lightweight yet powerful mapping capabilities, enabling the interactive 'Game View' where users navigate and log actions in a spatial context." },
+                    { title: "React & Vite", desc: "Leveraged for a highly responsive frontend that handles complex UI states (like the Pokémon Go-style interface) with minimal latency." },
+                    { title: "Node.js & Express", desc: "Used to build a streamlined backend for managing marker persistence and real-time updates, ensuring a seamless user experience for logging environmental impacts." }
+                ],
+                metrics: [
+                    { label: "Interactive Pins", value: "500+", percentage: 90 },
+                    { label: "Action Response", value: "<100ms", percentage: 95 },
+                    { label: "User Engagement", value: "High", percentage: 85 }
+                ],
+                summary: "Releaf is a revolutionary web application designed to gamify environmental activism. By logging real-world actions like tree planting and waste cleanup on a shared, interactive map, it fosters a sense of community and competition among students. The dual-mode interface—featuring a standard map and a 'Game View'—bridges the gap between digital interaction and real-world impact."
+            }
+        },
     ],
     skills: [
         { name: "Python", icon: "fab fa-python", color: "text-yellow-400" },
